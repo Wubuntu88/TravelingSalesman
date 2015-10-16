@@ -3,9 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.TreeSet;
-import java.util.Comparator;
 
 
 public class TravelingSalesmanDemo {
@@ -14,7 +12,10 @@ public class TravelingSalesmanDemo {
 	static TreeSet<String> citiesToVisit = new TreeSet<String>();
 
 	public static void main(String[] args) {
-		
+		//long maxMem = Runtime.getRuntime().maxMemory();
+		//System.out.println(maxMem);
+		//java -Xmx8g -jar travSales.jar
+
 		List<String> lines = null;
 		try {
 			lines = Files.readAllLines(Paths.get("cities.txt"));
@@ -22,24 +23,29 @@ public class TravelingSalesmanDemo {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		startingCity = lines.get(10);
+		startingCity = lines.get(0);
 		
 		//note: I will only do a few cities to begin with
-		for(String line : lines.subList(8, 19)){//took forever with 0, 13
+		for(String line : lines.subList(0, 14)){//took too much memory with 0, 15
 			citiesToVisit.add(line);
 		}
-		
+		long startMillis = System.currentTimeMillis();
 		travSalesTest();
-
+		long endMillis = System.currentTimeMillis();
+		long elapsedMillis = endMillis - startMillis;
+		System.out.println("elapsed Millis: " + elapsedMillis);
+		
 	}
 	
 	public static void travSalesTest(){
 		UniformCost uc = new UniformCost(startingCity, citiesToVisit);
 		PathDistPair bestPath = uc.findOptimumPath();
 		ArrayList<String> path = bestPath.getPath();
+		
 		for(String str : path){
 			System.out.println(str);
 		}
+		
 		//System.out.println(bestPath);
 		
 	}
