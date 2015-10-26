@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.TreeSet;
 
+
 public class EfficientUniformCost {
 	public class PathLengthComparator implements Comparator<byte[]> {
 
@@ -67,6 +68,7 @@ public class EfficientUniformCost {
 
 	PriorityQueue<byte[]> pathQueue;
 
+
 	public EfficientUniformCost() {
 	}// force use of the alternate constructor.
 
@@ -83,10 +85,10 @@ public class EfficientUniformCost {
 		for (String city : citiesToVisit) {
 			this.citiesToVisitAsByte.add(counter);
 			this.byteCitiesToStringCitesDict.put(new Byte(counter), city);
-			counter++;
 			if (city.equals(startingCity)) {
 				this.startingCityAsByte = counter;
 			}
+			counter++;
 		}
 	}
 
@@ -139,7 +141,6 @@ public class EfficientUniformCost {
 				}
 			}
 		}// end of while(! isHamiltonianPath() )
-
 		byte[] path = this.pathQueue.poll();
 		ArrayList<String> pathOfStringCities = new ArrayList<>();
 		for (byte byteCity : path) {
@@ -152,10 +153,6 @@ public class EfficientUniformCost {
 
 	// will have to get ArrayList of strings for path
 	public boolean isHamiltonianCircuit(byte[] path, TreeSet<Byte> cities) {
-		for (byte cityInPath : path) {
-			// System.out.print(cityInPath + ", ");
-		}
-		// System.out.println("cities: " + cities);
 
 		TreeSet<Byte> citiesCopy = new TreeSet<Byte>(cities);
 
